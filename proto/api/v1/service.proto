@@ -1,0 +1,14 @@
+
+syntax = "proto3";
+
+package api.v1;
+
+option go_package = "hanashite/api/v1";
+
+message HelloRequest {
+string name = 1;
+}
+
+message HelloResponse {
+string message = 1;
+}
