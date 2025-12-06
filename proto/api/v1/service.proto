@@ -5,10 +5,14 @@ package api.v1;
 
 option go_package = "hanashite/api/v1";
 
-message HelloRequest {
-string name = 1;
+message ConnectRequest {
+  bytes client_key = 1;
 }
 
-message HelloResponse {
+message ConnectResponse {
 string message = 1;
+}
+
+message CryptedMessage {
+  bytes message = 1;
 }

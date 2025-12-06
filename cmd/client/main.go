@@ -21,5 +21,4 @@ func main() {
 
 	fmt.Printf("Server private: %x\n", priv2)
 	fmt.Printf("Server public:  %x\n", pub2)
-	Hello
 }

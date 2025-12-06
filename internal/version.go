@@ -1,5 +1,7 @@
 package internal
 
-func Version() int {
-	return 1
+import "hanashite/internal/common"
+
+func Version() string {
+	return common.Version
 }
