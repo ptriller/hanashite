@@ -1,38 +1,51 @@
-# Project settings
-MODULE := hanashite
-
 # Version from git or fallback
-VERSION := $(shell git describe --tags --always 2>/dev/null || echo "dev")
-
 # All commands (folders in cmd/)
-CMDS := $(notdir $(wildcard cmd/*))
+
+.ONESHELL:
+.SHELLFLAGS := -Eeuo pipefail -c
+
+define track_file
+	trap 'rm -f $(1)' ERR
+	mkdir -p .gen
+	date >$(1)
+endef
 
 # ldflags for version info
+VERSION := $(shell git describe --tags --always 2>/dev/null || echo "dev")
 LDFLAGS := -ldflags="-X '$(MODULE)/internal/common.Version=$(VERSION)'"
 
-.PHONY: all clean distclean build test generate install-tools deps
 
 all: build test
+.PHONY: all
 
+CMDS := $(notdir $(wildcard cmd/*))
 build: $(CMDS:%=bin/%)
+.PHONY: build
+
 
 test: .gen/proto .gen/deps
 	go test ./...
+.PHONY: test
 
 clean:
 	rm -rf bin
+.PHONY: clean
 
-distclean:
-	rm -rf bin api .gen
+distclean: clean
+	rm -rf .gen
+.PHONY: distclean
+
 
 generate: .gen/proto
+.PHONY: generate
 
 install-tools: .gen/tools
+.PHONY: install-tools
 
 deps: .gen/deps
+.PHONY: deps
 
 bin/%: .gen/deps .gen/proto
-	@echo -e "\033[32m→\033[0m Building $@"; \
 	go build $(LDFLAGS) -o ./$@ ./cmd/$*;
 
 # stupid Make
@@ -40,17 +53,14 @@ bin/client: $(shell find pkg api cmd/client -name '*.go' 2> /dev/null)
 bin/server: $(shell find pkg api cmd/server -name '*.go' 2> /dev/null)
 
 .gen/proto: .gen/tools $(shell find proto -name '*.proto' 2> /dev/null)
+	$(call track_file, $@)
 	go generate ./...
-	@mkdir -p .gen
-	@date >.gen/proto
 
 .gen/deps: go.mod go.sum
+	$(call track_file, $@)
 	go mod download
 	go mod tidy
-	@mkdir -p .gen
-	@date >.gen/deps
 
 .gen/tools:
+	$(call track_file, $@)
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-	@mkdir -p .gen
-	@date >.gen/tools
