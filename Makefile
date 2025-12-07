@@ -13,7 +13,7 @@ build: $(CMDS:%=bin/%)
 
 test: .gen/proto .gen/deps
 	@echo -e "\e[32m→\e[0m Executing Tests"
-	@go test ./...
+	@go test ./... | grep -v '\[no test files\]'
 .PHONY: test
 
 clean:
@@ -22,7 +22,7 @@ clean:
 .PHONY: clean
 
 distclean:
-	@echo -e "\e[32m→\e[0m Complete Cleanup"
+	@echo -e "\e[32m→\e[0m Dist Cleanup"
 	@rm -rf bin api .gen
 .PHONY: distclean
 
