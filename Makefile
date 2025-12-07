@@ -1,13 +1,11 @@
-# Version from git or fallback
-# All commands (folders in cmd/)
 
 .ONESHELL:
 .SHELLFLAGS := -Eeuo pipefail -c
 
 define track_file
 	trap 'rm -f $(1)' ERR
-	mkdir -p .gen
-	date >$(1)
+	@mkdir -p .gen
+	@date >$(1)
 endef
 
 # ldflags for version info
@@ -22,7 +20,6 @@ CMDS := $(notdir $(wildcard cmd/*))
 build: $(CMDS:%=bin/%)
 .PHONY: build
 
-
 test: .gen/proto .gen/deps
 	go test ./...
 .PHONY: test
@@ -35,7 +32,6 @@ distclean: clean
 	rm -rf .gen
 .PHONY: distclean
 
-
 generate: .gen/proto
 .PHONY: generate
 
@@ -47,7 +43,6 @@ deps: .gen/deps
 
 bin/%: .gen/deps .gen/proto
 	go build $(LDFLAGS) -o ./$@ ./cmd/$*;
-
 # stupid Make
 bin/client: $(shell find pkg api cmd/client -name '*.go' 2> /dev/null)
 bin/server: $(shell find pkg api cmd/server -name '*.go' 2> /dev/null)

@@ -27,7 +27,12 @@ func (s *SocketServer) Start() {
 		zap.S().Fatalf("❌ Error starting listener: %v", err)
 	}
 	// Ensure the listener is closed when the main function exits
-	defer listener.Close()
+	defer func(listener net.Listener) {
+		err := listener.Close()
+		if err != nil {
+			zap.S().Fatalf("Error closing listener: %v", err)
+		}
+	}(listener)
 
 	zap.S().Infof("✅ TCP Server listening on %s\n", s.address)
 
@@ -46,6 +51,6 @@ func (s *SocketServer) Start() {
 	}
 }
 
-func (s *SocketServer) handleConnection(conn net.Conn) {
+func (s *SocketServer) handleConnection(_ net.Conn) {
 
 }
