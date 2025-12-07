@@ -1,0 +1,11 @@
+client:
+  server-address: 127.0.0.1:6543
+
+logging:
+  level: info
+  encoding: console
+  development: false
+  outputPaths:
+    - stdout
+  encoderConfig:
+    levelEncoder: capital

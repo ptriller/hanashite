@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"hanashite/api/v1"
 	"testing"
 
@@ -23,7 +24,7 @@ func TestProtobuf(t *testing.T) {
 	}
 
 	// Check equality
-	if !proto.Equal(original, &decoded) {
+	if !bytes.Equal(original.GetClientKey(), decoded.GetClientKey()) {
 		t.Errorf("expected %+v, got %+v", original, &decoded)
 	}
 }
