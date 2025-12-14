@@ -1,6 +1,6 @@
 package users
 
 type User struct {
-	Name   string `json:"name"`
-	Pubkey []byte `json:"pubkey"`
+	Name      string `json:"name"`
+	PublicKey string `json:"public_key"`
 }

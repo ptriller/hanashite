@@ -3,6 +3,8 @@ package main
 import (
 	"net"
 
+	"hanashite/cmd/server/channel/users"
+
 	"go.uber.org/zap"
 )
 
@@ -11,12 +13,23 @@ type ServerConfig struct {
 }
 
 type SocketServer struct {
-	address string
+	address        string
+	userService    *users.UserService
+	sessionManager *users.SessionManager
 }
 
 func NewSocketServer(cfg *ServerConfig) *SocketServer {
+	userService, err := users.NewUserService("./data")
+	if err != nil {
+		zap.S().Fatalf("Failed to create user service: %v", err)
+	}
+
+	sessionManager := users.NewSessionManager()
+
 	return &SocketServer{
-		address: cfg.BindAddress,
+		address:        cfg.BindAddress,
+		userService:    userService,
+		sessionManager: sessionManager,
 	}
 }
 
@@ -47,7 +60,7 @@ func (s *SocketServer) Start() {
 }
 
 func (s *SocketServer) handleConnection(conn net.Conn) {
-	connection, err := NewConnection(conn)
+	connection, err := NewConnection(conn, s.userService, s.sessionManager)
 	if err != nil {
 		zap.S().Warnf("Unable to establish connection: %v", err)
 		return
