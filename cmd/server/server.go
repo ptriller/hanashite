@@ -36,21 +36,21 @@ func (s *SocketServer) Start() {
 
 	zap.S().Infof("✅ TCP Server listening on %s\n", s.address)
 
-	// 2. Loop forever, accepting incoming connections
 	for {
-		// listener.Accept() blocks until a new connection is established
 		conn, err := listener.Accept()
 		if err != nil {
 			zap.S().Infof("⚠️ Error accepting connection: %v", err)
 			continue
 		}
-
-		// 3. Crucial Step: Start a new goroutine to handle the connection.
-		// This makes the Accept loop immediately ready for the next client.
-		go s.handleConnection(conn)
+		s.handleConnection(conn)
 	}
 }
 
-func (s *SocketServer) handleConnection(_ net.Conn) {
-
+func (s *SocketServer) handleConnection(conn net.Conn) {
+	connection, err := NewConnection(conn)
+	if err != nil {
+		zap.S().Warnf("Unable to establish connection: %v", err)
+		return
+	}
+	go connection.HandleConnection()
 }

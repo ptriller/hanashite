@@ -1,18 +1,40 @@
 
 syntax = "proto3";
-
 package api.v1;
 
 option go_package = "hanashite/api/v1";
+
+enum PayloadType {
+    TUnknown = 0;
+    TError = 1;
+    TConnectRequest = 2;
+    TConnectResponse = 3;
+    TLoginChallenge = 4;
+    TLoginRequest = 5;
+}
+
+message Envelope {
+  PayloadType type = 1;
+  bytes nonce = 2;
+  bytes msg = 3;
+}
+
+message ErrorResponse {
+  string message = 1;
+}
 
 message ConnectRequest {
   bytes client_key = 1;
 }
 
 message ConnectResponse {
-string message = 1;
+  bytes server_key = 1;
 }
 
-message CryptedMessage {
-  bytes message = 1;
+message LoginChallenge {
+  bytes challenge = 1;
+}
+
+message LoginRequest {
+  bytes challenge_response = 1;
 }

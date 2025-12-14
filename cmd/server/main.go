@@ -11,7 +11,6 @@ import (
 func main() {
 	// Setup temp logger before everything
 	common.PreLogger()
-	zap.S().Infof("Version %s", internal.Version())
 	// Define flags
 	configPath := pflag.StringP("config", "c", "./config.yml", "path to config file")
 	pflag.Parse()
@@ -22,6 +21,7 @@ func main() {
 	}
 	common.SetupLogger(&loggerConfig)
 	defer common.ShutdownLogger()
+	zap.S().Infof("Version %s", internal.Version())
 
 	var serverConfig ServerConfig
 	if err := common.FetchConfig("server", &serverConfig); err != nil {
