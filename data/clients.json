@@ -1,0 +1,9 @@
+{
+  "users": [
+    {
+      "name": "testuser",
+      "private_key": "42c11fce6071161f18131400a59cd892b6884032c7d893b66f1957aee442d07e",
+      "public_key": "562bc32fd3a479c45c92fcced7d5b67764a5738f4b98c7af7b1f80b31dee9075"
+    }
+  ]
+}

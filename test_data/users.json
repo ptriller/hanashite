@@ -1,0 +1,12 @@
+[
+  {
+    "name": "validuser",
+    "public_key": "45d1e93f5775b340321053678746954eac7d6bbb2b17f583d6aeb0ea6fa3560c",
+    "private_key": "e290d11346935c036372a505cea9937918bd8612b6dde66d7c4086333007e6f7"
+  },
+  {
+    "name": "invaliduser",
+    "public_key": "17fab6843d2db1c99c42a18c898b93c02ad58f7742285c42c87c5afa8dd8116c",
+    "private_key": "9411733c7a5d2e5050a0cac6b4b9c122847c714daefe38a65dfa92fa0fae95cd"
+  }
+]

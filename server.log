@@ -1,0 +1,8 @@
+2025-12-14T15:47:57.152+0100	INFO	server/main.go:24	Version dev
+2025-12-14T15:47:57.152+0100	INFO	users/service.go:60	Loaded users	{"count": 1}
+2025-12-14T15:47:57.152+0100	INFO	server/server.go:50	✅ TCP Server listening on 0.0.0.0:6543
+
+2025-12-14T15:48:16.788+0100	INFO	server/con_init.go:14	Handling init connection	{"type": 2}
+2025-12-14T15:48:16.788+0100	INFO	server/connection.go:256	User authenticated successfully	{"user": "testuser", "sessionID": "f2467f483e3df037ea3f9616cc1c10e3", "connectedAt": "2025-12-14T15:48:16.788+0100"}
+2025-12-14T15:48:16.788+0100	INFO	server/connection.go:262	Authentication flow completed successfully
+2025-12-14T15:48:21.792+0100	INFO	server/connection.go:77	Authentication completed, connection idle

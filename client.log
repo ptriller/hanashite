@@ -1,0 +1,9 @@
+Client X25519 public:  5b821050e821e385e0f675aa334e372b74496dc91f9cf272cd3ba7c91cb1e33e
+2025-12-14T15:48:16.786+0100	INFO	client/main.go:66	Attempting to connect to server	{"address": "localhost:6543"}
+2025-12-14T15:48:16.787+0100	INFO	client/main.go:73	TCP connection established
+2025-12-14T15:48:16.787+0100	INFO	client/main.go:201	Starting connection process
+2025-12-14T15:48:16.787+0100	INFO	client/main.go:211	Connection request sent	{"state": 0}
+2025-12-14T15:48:16.788+0100	INFO	client/main.go:144	Key exchange completed, waiting for challenge
+2025-12-14T15:48:16.788+0100	INFO	client/main.go:171	Challenge response sent, waiting for authentication result
+2025-12-14T15:48:21.792+0100	INFO	client/main.go:84	Message timeout received
+2025-12-14T15:48:26.792+0100	INFO	client/main.go:362	Client exiting after timeout
